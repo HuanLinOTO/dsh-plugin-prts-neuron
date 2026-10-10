@@ -60,8 +60,9 @@ pnpm build          # 产出 lib/index.js + lib/client.js + lib/types/
 ## 运行（安装到 profile）
 
 ```powershell
-dsh plugin --profile web add "link:D:/Projects/deepseek-harness/dsh-plugin-prts-neuron"
-# 或远端引用：dsh plugin --profile web add "github:huanlinoto/dsh-plugin-prts-neuron"
+# registry（推荐给用户）：dsh plugin --profile web add "@huanlin/dsh-plugin-prts-neuron"
+# GitHub 源码：        dsh plugin --profile web add "github:huanlinoto/dsh-plugin-prts-neuron"
+# 本地开发热更新：      dsh plugin --profile web add "link:D:/Projects/deepseek-harness/dsh-plugin-prts-neuron"
 ```
 
 `dsh plugin add` 已把包登记进 profile 的 `dsh.profile.bundles`。**实测无需重启 `dsh web`**：host 在页面加载时重组 client roster，`window.__DSH_BOOT__.entries` 里会出现 `@huanlin/dsh-plugin-prts-neuron`。
