@@ -1,0 +1,64 @@
+{
+  "name": "@huanlin/dsh-plugin-prts-neuron",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "dsh-plugin"
+  ],
+  "description": "把运行状态行换成 PRTS 神经元连接态：左侧图标替换为 B 站动图，文案改为“正在连接至PRTS神经元，用时 …” | Replaces the Chat running-status row with a PRTS neuron connection state: an animated GIF icon plus the “正在连接至PRTS神经元，用时 …” copy.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "build": "tsdown -c tsdown.config.ts && tsc -p tsconfig.json",
+    "bundle:client": "tsdown -c tsdown.config.ts"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@types/node": "^22.20.1",
+    "jsdom": "^26.0.0",
+    "tsdown": "^0.15.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

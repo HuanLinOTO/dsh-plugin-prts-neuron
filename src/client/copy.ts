@@ -1,0 +1,17 @@
+/**
+ * The copy and icon the running-status override applies, in one place.
+ *
+ * The values are build-time constants rather than plugin config: the client
+ * roster's boot rows carry no `config` field, so a browser half cannot read the
+ * Cordis row config (see README → Known Limitations).
+ */
+
+/** Copy the Chat running status shows; ui-chat's shipped Chinese label only. */
+export const SOURCE_LABEL = '深度求索中'
+
+/** Copy that replaces {@link SOURCE_LABEL}, keeping the trailing "，用时 …" suffix. */
+export const REPLACEMENT_LABEL = '正在连接至PRTS神经元'
+
+/** Animated icon that replaces the running status's whale-tail illustration. */
+export const ICON_URL =
+  'https://i0.hdslb.com/bfs/new_dyn/a5a0a0adb386867b3f5db5713576f9f5107716290.gif'

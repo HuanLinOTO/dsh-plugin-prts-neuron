@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "es2024",
+    "lib": [
+      "ES2024",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "composite": false,
+    "incremental": false,
+    "outDir": "lib/types",
+    "types": [
+      "node"
+    ],
+    "paths": {
+      "@deepseek-ai/cordis": [
+        "D:/Projects/deepseek-harness/dsh/vendor/cordis/lib/types/index.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ]
+}
