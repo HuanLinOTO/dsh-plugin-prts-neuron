@@ -47,6 +47,16 @@ describe('adornRunningStatuses', () => {
     expect(icon instanceof HTMLElement ? icon.style.display : undefined).toBe('none')
   })
 
+  it('doubles the icon with a transform, leaving the row layout box alone', () => {
+    document.body.innerHTML = runningRowMarkup()
+    adornRunningStatuses()
+
+    const image = document.querySelector('img[data-prts-icon]')
+    expect(image instanceof HTMLElement ? image.style.width : undefined).toBe('16px')
+    expect(image instanceof HTMLElement ? image.style.height : undefined).toBe('16px')
+    expect(image?.getAttribute('style') ?? '').toContain('scale(2)')
+  })
+
   it('rewrites the visible label, the screen-reader status, and the shimmer attribute', () => {
     document.body.innerHTML = runningRowMarkup()
     adornRunningStatuses()

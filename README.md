@@ -13,14 +13,17 @@ ui-chat 的运行状态行自带 `data-chat-running` 属性，内部是「鲸鱼
 
 | 目标 | 做法 |
 |------|------|
-| 图标 | 行内 icon 盒子前插入一张 `<img referrerpolicy="no-referrer">`，原 icon 盒子 `display:none`；图片加载失败（离线／防盗链）时移除图片并恢复原图标 |
+| 图标 | 行内 icon 盒子前插入一张 `<img referrerpolicy="no-referrer">`，原 icon 盒子 `display:none`；图片加载失败（离线／防盗链）时移除图片并恢复原图标。图标**布局盒仍是 16px**（与 ui-chat 原图标同尺寸，行高不变），视觉放大走 `transform:scale(2)` —— transform 不参与布局，实测该行高度前后都是 40.5px，绘制尺寸 32×32 |
 | 文案 | 监听文档变更，把行内文本节点、无障碍播报行、以及 TextShimmer 装饰层读取的 `data-shimmer-text` 属性里的「深度求索中」替换为「正在连接至PRTS神经元」 |
 
 React 每次 tick 会把文案写回原值，MutationObserver 在同一个微任务批次里改回去（浏览器绘制前完成，不闪烁）。两侧写入都幂等，所以观察者每轮渲染后即收敛，不会自激循环。
 
 匹配用的是 ui-chat 的作者级标记：`data-chat-running`、`data-shimmer-text`，以及鲸鱼 SVG 的父元素（icon 盒子）。**不匹配 CSS Module 的哈希类名**，因此对上游样式重构不敏感。
 
-`referrerpolicy="no-referrer"` 是必需的：实测 B 站图床带 referrer 请求该图返回失败，去掉 referrer 才加载成功（1000×1000 动图，缩到 16px 显示）。
+两个实测结论：
+
+- `referrerpolicy="no-referrer"` 是必需的：B 站图床带 referrer 请求该图直接失败，去掉 referrer 才加载成功（原图 1000×1000 动图）。
+- 放大用 transform 而不是加大布局盒：布局盒一旦超过行高就会顶开行距、挤动上下内容；transform 缩放只重绘不改布局，且浏览器按原始分辨率重采样，比把盒子写成 32px 更清晰。
 
 ## 开发
 
@@ -40,7 +43,9 @@ dsh plugin --profile web add "link:D:/Projects/deepseek-harness/dsh-plugin-prts-
 # 或远端引用：dsh plugin --profile web add "github:huanlinoto/dsh-plugin-prts-neuron"
 ```
 
-`dsh plugin add` 已把包登记进 profile 的 `dsh.profile.bundles`。**实测无需重启 `dsh web`**：host 在页面加载时重组 client roster，浏览器硬刷新（Ctrl+Shift+R）即可，`window.__DSH_BOOT__.entries` 里会出现 `@huanlin/dsh-plugin-prts-neuron`。改源码后重建 `lib/` 再刷新页面即可（`link:` 引用无需重装）。
+`dsh plugin add` 已把包登记进 profile 的 `dsh.profile.bundles`。**实测无需重启 `dsh web`**：host 在页面加载时重组 client roster，浏览器硬刷新（Ctrl+Shift+R）即可，`window.__DSH_BOOT__.entries` 里会出现 `@huanlin/dsh-plugin-prts-neuron`。
+
+改了源码之后：重建 `lib/`，再重跑一次同样的 `dsh plugin add`（触发 profile 重扫），然后硬刷新页面。实测只刷新页面时客户端仍按旧的资源 revision 取缓存字节；重跑 add 后刷新才拿到新产物 —— 全程不需要重启 `dsh web`。
 
 ## 检查
 
