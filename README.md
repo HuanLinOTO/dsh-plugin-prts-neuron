@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="https://dshfind.com/zh/plugins/huanlinoto/dsh-plugin-prts-neuron"><img src="https://dshfind.com/api/card/huanlinoto/dsh-plugin-prts-neuron?lang=zh" alt="dsh-plugin-prts-neuron card"></a>
+</p>
+
 # dsh-plugin-prts-neuron
 
 把 DSH WebUI 对话里的运行状态行换成 PRTS 神经元连接态：

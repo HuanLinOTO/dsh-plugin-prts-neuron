@@ -7,9 +7,13 @@
   "keywords": [
     "dsh-plugin"
   ],
-  "description": "把运行状态行换成 PRTS 神经元连接态：左侧图标替换为 B 站动图，文案改为“正在连接至PRTS神经元，用时 …” | Replaces the Chat running-status row with a PRTS neuron connection state: an animated GIF icon plus the “正在连接至PRTS神经元，用时 …” copy.",
+  "description": "把运行状态行换成 PRTS 神经元连接态：左侧图标替换为内联压缩动图（44 KiB，无外部请求），文案改为“正在连接至PRTS神经元，用时 …” | Replaces the Chat running-status row with a PRTS neuron connection state: an inlined compressed animated icon plus the “正在连接至PRTS神经元，用时 …” copy.",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huanlinoto/dsh-plugin-prts-neuron.git"
+  },
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "exports": {
