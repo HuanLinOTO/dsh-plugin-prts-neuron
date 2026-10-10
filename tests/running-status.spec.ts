@@ -1,6 +1,6 @@
 /** @vitest-environment jsdom */
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { ICON_URL, REPLACEMENT_LABEL, SOURCE_LABEL } from '../src/client/copy.ts'
+import { REPLACEMENT_LABEL, SOURCE_LABEL } from '../src/client/copy.ts'
 import { adornRunningStatuses, installRunningStatusOverride } from '../src/client/running-status.ts'
 
 const LABEL = '深度求索中，用时 3秒 ···'
@@ -40,8 +40,8 @@ describe('adornRunningStatuses', () => {
     const image = document.querySelector('img[data-prts-icon]')
     const icon = document.querySelector('.runningIcon')
     expect(image).not.toBeNull()
-    expect(image?.getAttribute('src')).toBe(ICON_URL)
-    expect(image?.getAttribute('referrerpolicy')).toBe('no-referrer')
+    expect(image?.getAttribute('src')?.startsWith('data:image/gif;base64,')).toBe(true)
+    expect((image?.getAttribute('src') ?? '').length).toBeGreaterThan(1000)
     expect(image?.getAttribute('aria-hidden')).toBe('true')
     expect(icon?.previousElementSibling).toBe(image)
     expect(icon instanceof HTMLElement ? icon.style.display : undefined).toBe('none')

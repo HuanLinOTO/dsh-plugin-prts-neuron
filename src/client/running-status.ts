@@ -14,9 +14,14 @@
  * whose parent is the icon box. Class names are CSS-module hashes and are
  * deliberately not matched.
  *
+ * The icon is an inline data URL rather than the source animation's URL: the
+ * original is a 1.3 MiB download behind hotlink protection, while the bundled
+ * copy is a 44 KiB compressed GIF that costs no request at all.
+ *
  * @module @huanlin/dsh-plugin-prts-neuron/client
  */
-import { ICON_URL, REPLACEMENT_LABEL, SOURCE_LABEL } from './copy.ts'
+import { REPLACEMENT_LABEL, SOURCE_LABEL } from './copy.ts'
+import { ICON_DATA_URL } from './icon-data.ts'
 
 /** Marker attribute on the injected image, so one row is adorned at most once. */
 const ICON_ATTRIBUTE = 'data-prts-icon'
@@ -50,8 +55,8 @@ function replaceLabel(value: string): string {
  * Put the animated icon in front of the row's own icon box and hide that box.
  *
  * The image is a sibling the row's renderer does not own: React patches the
- * icon box and the label it created and leaves this node alone. A failed load
- * (offline, hotlink protection) removes the image and unhides the original.
+ * icon box and the label it created and leaves this node alone. An inline
+ * payload that fails to decode removes the image and unhides the original.
  * @param row - one running-status row.
  */
 function adornIcon(row: Element): void {
@@ -61,12 +66,10 @@ function adornIcon(row: Element): void {
   const image = document.createElement('img')
   image.setAttribute(ICON_ATTRIBUTE, '')
   image.setAttribute('aria-hidden', 'true')
-  // Bilibili serves these animations to page referrers only.
-  image.setAttribute('referrerpolicy', 'no-referrer')
   image.alt = ''
   image.draggable = false
   image.style.cssText = ICON_STYLE
-  image.src = ICON_URL
+  image.src = ICON_DATA_URL
   image.addEventListener('error', () => {
     image.remove()
     icon.style.removeProperty('display')

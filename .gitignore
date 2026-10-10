@@ -2,3 +2,5 @@ node_modules/
 *.tsbuildinfo
 pnpm-lock.yaml
 pnpm-workspace.yaml
+# Fetched by `pnpm icon:build`; the compressed asset and the generated module are committed.
+assets/*.source.gif

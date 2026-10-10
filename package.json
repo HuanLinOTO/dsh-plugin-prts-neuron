@@ -38,6 +38,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
+    "icon:build": "node scripts/build-icon.mjs",
     "test": "vitest run",
     "build": "tsdown -c tsdown.config.ts && tsc -p tsconfig.json",
     "bundle:client": "tsdown -c tsdown.config.ts"
