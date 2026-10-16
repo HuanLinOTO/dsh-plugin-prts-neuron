@@ -7,7 +7,7 @@ afterEach(() => {
 })
 
 it('installs the running-status override as an owned client effect', async () => {
-  const effect = vi.fn(() => () => {})
+  const effect = vi.fn((_install: () => () => void, _label?: string) => () => {})
   const ctx = { effect } as unknown as Parameters<typeof client.apply>[0]
 
   client.apply(ctx)
