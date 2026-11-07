@@ -31,7 +31,7 @@
     ],
     "paths": {
       "@deepseek-ai/cordis": [
-        "D:/Projects/deepseek-harness/dsh/vendor/cordis/lib/types/index.d.ts"
+        "C:/Users/huanlin/.dsh/source/0.2.2-rc.1/vendor/cordis/lib/types/index.d.ts"
       ]
     }
   },
